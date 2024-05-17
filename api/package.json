@@ -1,0 +1,40 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dooworled_server.js",
+  "scripts": {
+    "start": "node tita_server.js",
+    "dev": "nodemon tita_server.js",
+    "test": "npm run test:db && jest --detectOpenHandles",
+    "test:db": "mysql -u root -p tita_center_test < tita_db_sql.test.sql",
+    "deploy:dev": "rsync -abvP -e ssh --exclude='titacenter.pem' --exclude='sql' --exclude='node_modules' --exclude='coverage' --exclude='package-lock.json' --suffix='.backup' * root@crypto-server:/var/www/html/tita_center_backend/",
+    "push:aws": "rsync -abvP -e 'ssh -i titacenter.pem' --exclude='titacenter.pem' --exclude='sql' --exclude='node_modules' --exclude='coverage' --exclude='package-lock.json' --exclude='uploads' --suffix='.backup' * ubuntu@ec2-34-194-170-241.compute-1.amazonaws.com:/var/www/html/tita_center_backend",
+    "pull:aws": "rsync -abvP -e 'ssh -i titacenter.pem' --exclude='titacenter.pem' --exclude='sql' --exclude='node_modules' --exclude='coverage' --exclude='package-lock.json' --exclude='uploads' ubuntu@ec2-34-194-170-241.compute-1.amazonaws.com:/var/www/html/tita_center_backend/ ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.3",
+    "coinbase": "^2.0.8",
+    "dotenv": "^7.0.0",
+    "express": "^4.19.2",
+    "express-fileupload": "^1.1.6",
+    "express-jwt": "^6.1.0",
+    "express-validator": "^5.3.1",
+    "firebase-admin": "^10.0.2",
+    "http": "0.0.1-security",
+    "https": "^1.0.0",
+    "knex": "^1.0.1",
+    "multer": "^1.4.4",
+    "mysql": "^2.18.1",
+    "node-binance-api": "^0.13.1",
+    "nodemailer": "^6.1.0",
+    "npm": "^6.14.4"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3"
+  }
+}
